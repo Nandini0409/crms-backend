@@ -1,0 +1,169 @@
+post http://localhost:8000/api/v1/admin/student
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNGIxODU5YjItZjE2OS00ZDBmLWFiZjctNjljMDRkZDU1MjdhIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzcwOTAwNTY4fQ.KDsInXGdN_z3aypDKaHgWwZirXaEGlfB-JsLUNkuIqA
+Content-Type: application/json
+
+{
+  "email": "abc@example.com",
+  "name": "string",
+  "phone": "9999999999"
+}
+
+
+
+###
+GET http://localhost:8000/api/v1/admin/dashboard
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNGIxODU5YjItZjE2OS00ZDBmLWFiZjctNjljMDRkZDU1MjdhIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzcwODA5OTM5fQ.lp12yTlPILg2l3BPl2CMi5NRPXyW33if9tNwRXb_k2Y
+
+###
+post http://localhost:8000/api/v1/admin/teacher
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNGIxODU5YjItZjE2OS00ZDBmLWFiZjctNjljMDRkZDU1MjdhIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzcxMzI2NjQwfQ.Gb-vMC_e5J0psqdDmGlKJRORhbpNCWpvFMG54qcIkEo
+Content-Type: application/json
+
+{
+  "email": "usert@example.com",
+  "name": "teena",
+  "phone": "8956231478"
+}
+
+
+
+###
+GET  http://localhost:8000/api/v1/admin/student
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNGIxODU5YjItZjE2OS00ZDBmLWFiZjctNjljMDRkZDU1MjdhIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzY5OTUwMTQ1fQ.-ePOgYyejeijTVzOuGLcoWsl-Wq32Axd4KuXDaqJ7Z4
+
+
+###
+GET http://localhost:8000/api/v1/admin/teacher
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNGIxODU5YjItZjE2OS00ZDBmLWFiZjctNjljMDRkZDU1MjdhIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzcwMjA2MzU5fQ.xejyaEIDoGiBwWUUt1AWlkTb40rWX9_opPlhTNzxvMs
+
+
+
+
+###
+POST http://localhost:8000/api/v1/admin/teacher
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNGIxODU5YjItZjE2OS00ZDBmLWFiZjctNjljMDRkZDU1MjdhIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzcwMjA2MzU5fQ.xejyaEIDoGiBwWUUt1AWlkTb40rWX9_opPlhTNzxvMs
+
+{
+  "email": "teacher1@example.com",
+  "name": "teacher1",
+  "phone": "string123"
+}
+
+
+
+
+###
+POST http://localhost:8000/api/v1/admin/batch
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNGIxODU5YjItZjE2OS00ZDBmLWFiZjctNjljMDRkZDU1MjdhIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzcwMjA2MzU5fQ.xejyaEIDoGiBwWUUt1AWlkTb40rWX9_opPlhTNzxvMs
+
+{
+  "name": "dbms course",
+  "course": "string",
+  "schedule": "string"
+}
+
+
+###
+GET http://localhost:8000/api/v1/admin/batch/df3c8d1a-8d04-456b-aedb-dc80fb1a649f/teachers
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNGIxODU5YjItZjE2OS00ZDBmLWFiZjctNjljMDRkZDU1MjdhIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzcwODk3MjkzfQ.lec7DfCg-dA9XdJOWijLrIA0wBEEgytICpFjWbm3UUQ
+
+
+###
+GET http://localhost:8000/api/v1/admin/batch/df3c8d1a-8d04-456b-aedb-dc80fb1a649f/students
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNGIxODU5YjItZjE2OS00ZDBmLWFiZjctNjljMDRkZDU1MjdhIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzcwODk3MjkzfQ.lec7DfCg-dA9XdJOWijLrIA0wBEEgytICpFjWbm3UUQ
+
+
+###
+POST http://localhost:8000/api/v1/admin/teacher-batch
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNGIxODU5YjItZjE2OS00ZDBmLWFiZjctNjljMDRkZDU1MjdhIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzcwMjA2MzU5fQ.xejyaEIDoGiBwWUUt1AWlkTb40rWX9_opPlhTNzxvMs
+
+{
+  "teacher_id": "880dcf7d-d6a1-4026-81b0-4201f46deb05",
+  "batch_id": "f049fa8f-f29f-4a6f-be43-9f404fe330db"
+}
+
+
+
+###
+POST http://localhost:8000/api/v1/admin/enrollment
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNGIxODU5YjItZjE2OS00ZDBmLWFiZjctNjljMDRkZDU1MjdhIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzcwMjI5NTU3fQ.QpYgNQrigIfYjfk6QQjm2bW9po05Fd9M2rPZ5rwyku8
+
+{
+  "student_id": "2c7ecabd-0f20-4fad-ab60-9a1643944b25",
+  "batch_id": "f049fa8f-f29f-4a6f-be43-9f404fe330db"
+}
+
+
+
+
+###
+POST http://localhost:8000/api/v1/admin/fees
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNGIxODU5YjItZjE2OS00ZDBmLWFiZjctNjljMDRkZDU1MjdhIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzcwMjI5NTU3fQ.QpYgNQrigIfYjfk6QQjm2bW9po05Fd9M2rPZ5rwyku8
+
+{
+  "batch_id": "f049fa8f-f29f-4a6f-be43-9f404fe330db",
+  "amount": 10000,
+  "period": "Jan 2026"
+}
+
+
+
+
+###
+POST http://localhost:8000/api/v1/admin/payments
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNGIxODU5YjItZjE2OS00ZDBmLWFiZjctNjljMDRkZDU1MjdhIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzcwMjI5NTU3fQ.QpYgNQrigIfYjfk6QQjm2bW9po05Fd9M2rPZ5rwyku8
+
+{
+  "student_id": "2c7ecabd-0f20-4fad-ab60-9a1643944b25",
+  "batch_id": "f049fa8f-f29f-4a6f-be43-9f404fe330db",
+  "fee_id": "ef061279-ec23-4cee-893e-d069dd54a852",
+  "amount_paid": 1000,
+  "payment_date": "2026-02-04T17:59:21.434Z",
+  "mode": "cash"
+}
+
+
+
+
+
+###
+GET http://localhost:8000/api/v1/teacher/batches/f049fa8f-f29f-4a6f-be43-9f404fe330db/students
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOTI4MGViYzItMTRhNS00MmU2LTg3N2QtMTAwYWQ0MzBlMzUzIiwicm9sZSI6InRlYWNoZXIiLCJleHAiOjE3NzAyMjU1Njl9.Y85NmeRMhutAN1z1BJvUD1_WOUfUwxVepvNX1x5otKI
+
+
+
+
+
+###
+GET http://localhost:8000/api/v1/teacher/batches
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOTI4MGViYzItMTRhNS00MmU2LTg3N2QtMTAwYWQ0MzBlMzUzIiwicm9sZSI6InRlYWNoZXIiLCJleHAiOjE3NzAyMjU1Njl9.Y85NmeRMhutAN1z1BJvUD1_WOUfUwxVepvNX1x5otKI
+
+
+
+###
+POST http://localhost:8000/api/v1/teacher/attendance
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOTI4MGViYzItMTRhNS00MmU2LTg3N2QtMTAwYWQ0MzBlMzUzIiwicm9sZSI6InRlYWNoZXIiLCJleHAiOjE3NzAyMzAwNjR9.absu5-zXQ_nnRDRAHLJ8OO6B0PWsqVyYqpi34pSnc_w
+
+{
+  "batch_id": "f049fa8f-f29f-4a6f-be43-9f404fe330db",
+  "date": "2026-02-04",
+  "records": [
+    {
+      "student_id": "2c7ecabd-0f20-4fad-ab60-9a1643944b25",
+      "status": "PRESENT"
+    }
+  ]
+}
+
+
+
+
+###
+GET http://localhost:8000/api/v1/student/fees
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMzk0NTE2YTQtNWJlNC00OTE0LTg1MTAtNDQwMjA2NWJlMTgyIiwicm9sZSI6InN0dWRlbnQiLCJleHAiOjE3NzEyNDM0Mjl9.K9hdK94V6joA070sLIjKQZeaNKRm1VCkqU3f3-yu8dE
+
+
+
+###
+GET http://localhost:8000/api/v1/student/batch/df3c8d1a-8d04-456b-aedb-dc80fb1a649f
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMzk0NTE2YTQtNWJlNC00OTE0LTg1MTAtNDQwMjA2NWJlMTgyIiwicm9sZSI6InN0dWRlbnQiLCJleHAiOjE3NzExNzgwNjR9.Dl0JdYOqJ5NUQdEr_0P_KHxiZZzUrzCW3GBMeVfwdZQ

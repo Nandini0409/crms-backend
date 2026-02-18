@@ -1,0 +1,589 @@
+openapi: 3.1.0
+
+info:
+  title: Coaching Center System – MVP API
+  version: 1.0.0
+  description: |
+    Phase-1 MVP backend APIs
+    - Admin-driven system
+    - Roles: ADMIN, TEACHER, STUDENT
+    - Cookie-based JWT authentication
+
+servers:
+  - url: http://localhost:8000/api/v1
+    description: Local server
+
+security:
+  - bearerAuth: []
+
+components:
+
+  # ============================
+  # SECURITY
+  # ============================
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  # ============================
+  # COMMON RESPONSES
+  # ============================
+  schemas:
+
+    BaseSuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: "Operation successful"
+
+    BaseErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: string
+          example: "Invalid request"
+        code:
+          type: string
+          example: "BAD_REQUEST"
+
+  # ============================
+  # AUTH
+  # ============================
+    LoginRequest:
+      type: object
+      required: [email, password]
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+
+    LoginResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseSuccessResponse'
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                user_id:
+                  type: string
+                  format: uuid
+                role:
+                  type: string
+                  example: "ADMIN"
+                access_token: 
+                  type: string
+
+  # ============================
+  # ENTITIES
+  # ============================
+    Student:
+      type: object
+      properties:
+        student_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        phone:
+          type: string
+          nullable: true
+
+    Teacher:
+      type: object
+      properties:
+        teacher_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        phone:
+          type: string
+          nullable: true
+
+    Batch:
+      type: object
+      properties:
+        batch_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        course:
+          type: string
+        schedule:
+          type: string
+
+    Fee:
+      type: object
+      properties:
+        fee_id:
+          type: string
+          format: uuid
+        batch_id:
+          type: string
+          format: uuid
+        batch_name:
+          type: string
+        amount:
+          type: integer
+        period:
+          type: string
+
+    Payment:
+      type: object
+      properties:
+        payment_id:
+          type: string
+          format: uuid
+        student_id:
+          type: string
+          format: uuid
+        fee_id:
+          type: string
+          format: uuid
+        amount_paid:
+          type: integer
+        payment_date:
+          type: string
+          format: date-time
+        mode:
+          type: string
+          example: "upi"
+
+    Attendance:
+      type: object
+      properties:
+        attendance_id:
+          type: string
+          format: uuid
+        enrollment_id:
+          type: string
+          format: uuid
+        date:
+          type: string
+          format: date
+        status:
+          type: string
+          example: "PRESENT"
+
+  # ============================
+  # REQUEST SCHEMAS
+  # ============================
+    CreateStudentRequest:
+      type: object
+      required: [email, name]
+      properties:
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        phone:
+          type: string
+          nullable: true
+
+    CreateTeacherRequest:
+      type: object
+      required: [email, name]
+      properties:
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        phone:
+          type: string
+          nullable: true
+
+    CreateBatchRequest:
+      type: object
+      required: [name, course, schedule]
+      properties:
+        name:
+          type: string
+        course:
+          type: string
+        schedule:
+          type: string
+
+    CreateEnrollmentRequest:
+      type: object
+      required: [student_id, batch_id]
+      properties:
+        student_id:
+          type: string
+          format: uuid
+        batch_id:
+          type: string
+          format: uuid
+
+    AssignTeacherBatchRequest:
+      type: object
+      required: [teacher_id, batch_id]
+      properties:
+        teacher_id:
+          type: string
+          format: uuid
+        batch_id:
+          type: string
+          format: uuid
+
+    CreateFeeRequest:
+      type: object
+      required: [batch_id, amount, period]
+      properties:
+        batch_id:
+          type: string
+          format: uuid
+        amount:
+          type: integer
+        period:
+          type: string
+
+    CreatePaymentRequest:
+      type: object
+      required: [student_id, fee_id, amount_paid, payment_date, mode]
+      properties:
+        student_id:
+          type: string
+          format: uuid
+        fee_id:
+          type: string
+          format: uuid
+        amount_paid:
+          type: integer
+        payment_date:
+          type: string
+          format: date-time
+        mode:
+          type: string
+
+    MarkAttendanceRequest:
+      type: object
+      required: [enrollment_id, date, status]
+      properties:
+        enrollment_id:
+          type: string
+          format: uuid
+        date:
+          type: string
+          format: date
+        status:
+          type: string
+
+  # ============================
+  # LIST RESPONSES
+  # ============================
+    StudentListResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseSuccessResponse'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/Student'
+
+    TeacherListResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseSuccessResponse'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/Teacher'
+
+    BatchListResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseSuccessResponse'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/Batch'
+
+    StudentAttendanceResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseSuccessResponse'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/Attendance'
+
+    StudentFeesResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseSuccessResponse'
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                total_fee:
+                  type: integer
+                paid:
+                  type: integer
+                remaining:
+                  type: integer
+
+paths:
+
+  /auth/login:
+    post:
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+
+  /admin/students:
+    post:
+      tags: [Admin]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateStudentRequest'
+      responses:
+        '200':
+          description: Student created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseSuccessResponse'
+    get:
+      tags: [Admin]
+      responses:
+        '200':
+          description: List students
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentListResponse'
+
+    /admin/teachers:
+    post:
+      tags: [Admin]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTeacherRequest'
+      responses:
+        '200':
+          description: Teacher created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseSuccessResponse'
+
+    get:
+      tags: [Admin]
+      responses:
+        '200':
+          description: List teachers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeacherListResponse'
+
+
+  /admin/batches:
+    post:
+      tags: [Admin]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBatchRequest'
+      responses:
+        '200':
+          description: Batch created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseSuccessResponse'
+
+    get:
+      tags: [Admin]
+      responses:
+        '200':
+          description: List batches
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchListResponse'
+
+
+  /admin/enrollments:
+    post:
+      tags: [Admin]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEnrollmentRequest'
+      responses:
+        '200':
+          description: Student enrolled to batch
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseSuccessResponse'
+
+
+  /admin/teacherBatch:
+    post:
+      tags: [Admin]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssignTeacherBatchRequest'
+      responses:
+        '200':
+          description: Teacher assigned to batch
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseSuccessResponse'
+
+
+  /admin/fees:
+    post:
+      tags: [Admin]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFeeRequest'
+      responses:
+        '200':
+          description: Fee added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseSuccessResponse'
+
+    get:
+      tags: [Admin]
+      responses:
+        '200':
+          description: List fees
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseSuccessResponse'
+
+
+  /admin/payments:
+    post:
+      tags: [Admin]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePaymentRequest'
+      responses:
+        '200':
+          description: Payment recorded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseSuccessResponse'
+
+    get:
+      tags: [Admin]
+      responses:
+        '200':
+          description: List payments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseSuccessResponse'
+
+
+  /teacher/batches:
+    get:
+      tags: [Teacher]
+      responses:
+        '200':
+          description: Batches assigned to teacher
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchListResponse'
+
+
+  /teacher/attendance:
+    post:
+      tags: [Teacher]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MarkAttendanceRequest'
+      responses:
+        '200':
+          description: Attendance marked
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseSuccessResponse'
+
+
+  /student/attendance:
+    get:
+      tags: [Student]
+      responses:
+        '200':
+          description: Student attendance
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentAttendanceResponse'
+
+
+  /student/fees:
+    get:
+      tags: [Student]
+      responses:
+        '200':
+          description: Student fee summary
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentFeesResponse'
+
