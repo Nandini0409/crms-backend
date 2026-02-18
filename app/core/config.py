@@ -7,7 +7,8 @@ class Settings(BaseSettings):
     database_url: str
     log_level: str = "INFO"
     secret_key: str 
-
+    cors_origins: str
+    
     class Config:
         env_file = ".env"
 
