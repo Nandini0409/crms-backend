@@ -4,7 +4,7 @@ from app.repositories.user import get_user_by_email, create_user
 from app.repositories.student import create_student, get_all_students, get_student_by_id, count_total_students
 from app.repositories.teacher import create_teacher, get_all_teachers, get_teacher_by_id, count_total_teachers
 from app.repositories.batch import create_batch, get_all_batches, get_batch_by_id, count_total_batches
-from app.repositories.enrollment import get_enrollment_by_student_batch, create_enrollment, get_students_by_batch_id
+from app.repositories.enrollment import get_enrollment_by_student_batch, create_enrollment, get_students_by_batch_id, get_active_enrollment
 from app.repositories.teacherBatch import get_assignment_by_teacher_batch, assign_teacher, get_teachers_by_batch_id
 from app.repositories.fee import get_fee_by_batch, get_all_fees, create_fee
 from app.repositories.payment import get_all_payments, create_payment, sum_total_payments
@@ -326,6 +326,16 @@ def create_payment_service(db, data):
             user_message="Batch not found",
             status_code=404
         )
+    
+
+    enrollment = get_active_enrollment(db, data.student_id, data.batch_id)
+    if not enrollment:
+        raise BusinessError(
+            code="STUDENT_NOT_ENROLLED",
+            user_message="Student is not enrolled in this batch",
+            status_code=400
+        )
+
 
     fee = get_fee_by_batch(db, data.batch_id)
     if not fee:

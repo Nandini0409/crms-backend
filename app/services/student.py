@@ -1,6 +1,6 @@
 from app.repositories.student import get_student_by_user_id
 from app.repositories.attendance import get_attendance_by_student_id, get_attendance_percentage
-from app.repositories.enrollment import get_active_enrollments_by_student, get_batches_by_student_id
+from app.repositories.enrollment import get_active_enrollment, get_batches_by_student_id
 from app.repositories.fee import get_fees_by_batch_id
 from app.repositories.payment import get_total_paid_by_student_and_fee_ids
 from app.core.exception import AuthError
@@ -97,7 +97,7 @@ def get_student_fees_service(db, user_id, batch_id: int | None = None):
             user_message="Student profile not found"
         )
 
-    enrollments = get_active_enrollments_by_student(db, student.student_id)
+    enrollments = get_active_enrollment(db, student.student_id)
 
     response = []
 

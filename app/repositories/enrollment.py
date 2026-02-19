@@ -46,14 +46,14 @@ def get_students_by_batch_id(
 
 
 
-def get_active_enrollments_by_student(db, student_id):
+def get_active_enrollment(db, student_id, batch_id):
     return (
         db.query(Enrollment)
         .filter(
             Enrollment.student_id == student_id,
-            Enrollment.status == "active"
+            Enrollment.batch_id == batch_id,
         )
-        .all()
+        .first()
     )
 
 
