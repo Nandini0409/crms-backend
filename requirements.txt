@@ -8,3 +8,5 @@ passlib[bcrypt]
 python-jose
 pytest
 httpx
+pydantic-settings
+supabase
