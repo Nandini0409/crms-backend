@@ -9,11 +9,12 @@ from app.models.Enrollment import Enrollment
 from app.models.Fee import Fee
 from app.models.Payment import Payment
 from app.models.TeacherBatch import TeacherBatch
-
+from sqlalchemy.pool import NullPool
 
 engine = create_engine(
     settings.database_url,
-    echo=False
+    pool_pre_ping=True,
+    poolclass=NullPool,  
 )
 
 def get_session():
@@ -27,5 +28,3 @@ def get_session():
     finally:
         session.close()
 
-
-SQLModel.metadata.create_all(engine)
