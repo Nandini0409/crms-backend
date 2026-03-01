@@ -10,6 +10,7 @@ from app.repositories.fee import get_fee_by_batch, get_all_fees, create_fee
 from app.repositories.payment import get_all_payments, create_payment, sum_total_payments
 from app.utils.password import hash_password, generate_random_password
 from app.core.exception import BusinessError
+from app.utils.email import send_welcome_email
 
 logger = logging.getLogger(__name__)
 
@@ -54,6 +55,8 @@ def create_student_service(db, data):
         phone=data.phone,
     )
 
+    send_welcome_email(data.email, raw_password)
+
     logger.info(
         "Student created successfully",
         extra={"student_id": str(student.student_id)}
@@ -61,7 +64,6 @@ def create_student_service(db, data):
 
     return {
             "student": student,
-            "temporary_password": raw_password,
         }
 
 
@@ -100,6 +102,8 @@ def create_teacher_service(db, data):
         phone=data.phone,
     )
 
+    send_welcome_email(data.email, raw_password)
+
     logger.info(
         "Teacher created successfully",
         extra={"teacher_id": str(teacher.teacher_id)}
@@ -107,7 +111,6 @@ def create_teacher_service(db, data):
 
     return {
             "teacher": teacher,
-            "temporary_password": raw_password,
         }
 
 
